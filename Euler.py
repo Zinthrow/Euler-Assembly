@@ -1,7 +1,5 @@
 import os
 
-import os
-
 #class vertice(object):
 #    def __init__(self)
 
@@ -27,6 +25,12 @@ keys = sorted(keys)
 for edges in keys:
     for degrees in edges:
         degrees = sorted(degrees)
+def balanced(key):
+    key[2] = len(key[1]) - len(key[0])
+    if key[2] == 0:
+        return True
+    else:
+        return False
 fake_start = []
 for start in keys:
     path = str(start)
@@ -45,6 +49,7 @@ for start in keys:
                 copygraph[smer[2:]][0].pop(smer[0:2]) #moves indegrees
                 copygraph[smer[2:]][0].append(smer[0:2])
         while copygraph[x][1] != []:
+            
             x = copygraph[x][1]
             subpath = subpath + x[1]
             copygraph[x][1].pop(0)
