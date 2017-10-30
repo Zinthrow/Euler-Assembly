@@ -4,6 +4,10 @@ import copy
 #class vertice(object):
 #    def __init__(self)
 
+def balanced(graph):
+    graph[2] = len(graph[1]) - len(graph[0])
+    return graph[2]
+
 filename = "3_10.kmers.txt"
 if os.path.exists(filename):
     kmers = open(filename, 'r')
@@ -21,14 +25,13 @@ for kmer in kmers:
                 graph[prev][1].append(x+y)#makes outdegrees for prev                
                 graph[x+y][0].append(prev)#sets indegrees for x+y
             prev = x+y
+            
 keys = sorted(keys)            
 for edges in keys:
     for degrees in edges:
         degrees = sorted(degrees)
+        
 outdegrees = 0
-def balanced(graph):
-    graph[2] = len(graph[1]) - len(graph[0])
-    return graph[2]
 for key in keys:
     balanced(graph[key])
     outdegrees += len(graph[key][1])
@@ -36,8 +39,7 @@ for key in keys:
         s = key
     elif balanced(graph[key]) <= -1:
         t = key
-
-
+        
 path = ""
 usededge ={}
 count = 0
@@ -52,6 +54,7 @@ while len(path) < outdegrees + 2:
             copygraph[smer[0:2]][1].append(smer[2:])
             copygraph[smer[2:]][0].pop(0) #moves indegrees
             copygraph[smer[2:]][0].append(smer[0:2])
+            
     while copygraph[x][1] != [] and len(path) <= outdegrees + 2:
         if len(copygraph[x][1]) > 1:
             usededge[x+copygraph[x][1][0]] = True
@@ -61,4 +64,5 @@ while len(path) < outdegrees + 2:
         for y in copygraph[x][0]:
             if y == prev:
                 copygraph[y][1].pop(0)
+                
 print (path)
