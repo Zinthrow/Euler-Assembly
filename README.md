@@ -1,5 +1,5 @@
 # Euler-Assembly
-Assignment from 576 informatcic assembles full length sequences from parts
+Assignment from 576 bioinformatics, assembles full length sequences from smaller parts
  
 
 Assignment instructions
